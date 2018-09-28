@@ -55,19 +55,21 @@ class App extends React.Component {
             <div className='app-container'>
                 <header>
                 <h1 className="app-tittle">Shopping List</h1>
-                <div >{
-                    message !== "" && <p>{message}</p>
-                }
 
+                    {
+                    message !== '' &&    <div className='message' >{
+                        message !== "" && <p>{message}</p>
+                    }
+                    </div>
+                    }
 
-                </div>
                 </header>
                         <form className="" onSubmit={(e) => {
                         this.addItem(e)}}>
                         <label htmlFor="newItemInput">Add new item</label>
                         <input ref={input => this.newItem = input} type="text" id="newItemInput"/>
 
-                    <button className="btn-default" type="submit">dodaj</button>
+                    <button className="btn-default" type="submit">add</button>
                 </form>
 
 
@@ -77,7 +79,7 @@ class App extends React.Component {
                     buyItems.length > 0 &&
                         <thead>
                         <tr>
-                            <th>#</th>
+                            <th></th>
                             <th>item</th>
                             <th>Action</th>
                         </tr>
@@ -93,7 +95,7 @@ class App extends React.Component {
                                 <td>{item}</td>
                                 <td>
                                     <button
-                                    onClick={(e) => this.delateItem(item)}>Button
+                                    onClick={(e) => this.delateItem(item)}>remove
                                     </button>
                                 </td>
                             </tr>
