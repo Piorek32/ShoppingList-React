@@ -23,14 +23,15 @@ class App extends React.Component {
                 message: "is on the list"
             })
              } else {
-                this.setState({
-                    buyItems: [...this.state.buyItems, newItem]
+               newItem !== "" && this.setState({
+                    buyItems: [...this.state.buyItems, newItem],
+                   message : ''
                 })
+            }
         }
-    }
     
 
-    delate(item) {
+    delateItem(item) {
         const newBuyItems = this.state.buyItems.filter(buyItems => {
             return buyItems !== item
         })
@@ -41,38 +42,49 @@ class App extends React.Component {
         })
     }
 
-
-
-
+    clear() {
+        this.setState({
+            buyItems : [],
+            message : 'no item on the list'
+        })
+    }
 
     render() {
         const {buyItems, message} = this.state;
         return (
-            <div>
-                <h1>Shopping List</h1>
-                <div>{
+            <div className='app-container'>
+                <header>
+                <h1 className="app-tittle">Shopping List</h1>
+                <div >{
                     message !== "" && <p>{message}</p>
                 }
-                <form className="form-inline" onSubmit={(e) => {
-                    this.addItem(e)
-                }}>
-                    <div>
-                        <label htmlFor="newItemInput">Add new item</label>
-                        <input ref={input => this.newItem = input} type="text" id="newItemInput"/>
-                    </div>
-                    <button type="submit"></button>
-                </form>
+
 
                 </div>
-                <table className="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>item</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                </header>
+                        <form className="" onSubmit={(e) => {
+                        this.addItem(e)}}>
+                        <label htmlFor="newItemInput">Add new item</label>
+                        <input ref={input => this.newItem = input} type="text" id="newItemInput"/>
+
+                    <button className="btn-default" type="submit">dodaj</button>
+                </form>
+
+
+                <table className="app-table">
+
+                    {
+                    buyItems.length > 0 &&
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>item</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+
+                    }
+                    < tbody >
 
                     {
                         buyItems.map(item => {
@@ -81,14 +93,19 @@ class App extends React.Component {
                                 <td>{item}</td>
                                 <td>
                                     <button
-                                    onClick={(e) => this.delate(item)}>Button
+                                    onClick={(e) => this.delateItem(item)}>Button
                                     </button>
                                 </td>
-
                             </tr>
                         })
                     }
                     </tbody>
+                    <tfoot>
+                    <td></td>
+                    <td>
+                        <button onClick={this.clear.bind(this)}  >clear</button>
+                    </td>
+                    </tfoot>
                 </table>
             </div>
         )
@@ -97,3 +114,4 @@ class App extends React.Component {
 
 
 export default App;
+
